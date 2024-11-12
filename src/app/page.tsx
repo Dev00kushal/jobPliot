@@ -1,9 +1,10 @@
-import Header from "@/section/Header";
+import Header from "@/components/Header";
 
-export default function Home() {
-  return ( 
-    <div className="border border-red-400 bg-customGray flex justify-center items-center">
-      <Header/> 
+export default function page() {
+  return (
+    <div className="bg-customGray py-2">
+<Header/>
+
     </div>
   )
 }
