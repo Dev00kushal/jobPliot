@@ -1,15 +1,12 @@
 "use client";
 import { PhoneCall } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./select";
+import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
+// Example links
 const links = [
   { name: "Home", href: "/" },
   { name: "Find Job", href: "/job" },
@@ -19,15 +16,21 @@ const links = [
 ];
 
 const countries = [
-  { code: "EN", name: "English" },
-  { code: "NP", name: "Nepal" },
+  { code: "EN", name: "English", flag: "us.svg" },
+  { code: "NP", name: "Nepal", flag: "np.svg" },
 ];
 
 export default function Header() {
   const pathName = usePathname();
+  const [selectedCountry, setSelectedCountry] = useState(countries[0]); // Default to English
+
+  const handleCountryChange = (value:String ) => {
+    const selected = countries.find((country) => country.code === value) as any;
+    setSelectedCountry(selected);
+  };
 
   return (
-    <div className="">
+    <div>
       <nav className="flex items-center px-80 bg-customGray py-2">
         {links.map((item, index) => (
           <Link
@@ -43,22 +46,40 @@ export default function Header() {
           </Link>
         ))}
 
-        <div className="flex items-center ml-auto gap-1">
+        <div className="flex items-center ml-auto">
           <PhoneCall className="scale-75" />
           <span className="text-customNavtext ml-2">+1-202-555-0178</span>
 
-          <Select>
-            <SelectTrigger className="w-[100px]">
-              <SelectValue placeholder="English" />
+          <Select value={selectedCountry.code} onValueChange={handleCountryChange}>
+            <SelectTrigger className="w-[125px] ml-6">
+              <SelectValue>
+                <div className="flex items-center">
+                  <Image
+                    src={selectedCountry.flag}
+                    alt={selectedCountry.name}
+                    width={24}
+                    height={16}
+                    className="mr-2"
+                  />
+                  {selectedCountry.name}
+                </div>
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {countries.map((country) => {
-                return (
-                  <SelectItem key={country.code} value={country.code}>
-                    <div className="flex items-center">{country.name}</div>
-                  </SelectItem>
-                );
-              })}
+              {countries.map((country) => (
+                <SelectItem key={country.code} value= {country.code}>
+                  <div className="flex items-center">
+                    <Image
+                      src={country.flag}
+                      alt={country.name}
+                      width={24}
+                      height={16}
+                      className="mr-2"
+                    />
+                    <span>{country.name}</span>
+                  </div>
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
