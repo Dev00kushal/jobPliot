@@ -9,6 +9,7 @@ const config: Config = {
       colors:{
         customGray: "#F1F2F4",
         customBlue: "#0A65CC",
+        customNavtext: "#5E6670",
       }
     },
   },

@@ -1,6 +1,6 @@
 
 export default function Job() {
   return (
-    <div>Job</div>
+    <div className="h-screen">Job</div>
   )
 }
