@@ -22,7 +22,7 @@ const countries = [
 
 export default function Header() {
   const pathName = usePathname();
-  const [selectedCountry, setSelectedCountry] = useState(countries[0]); // Default to English
+  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
 
   const handleCountryChange = (value:String ) => {
     const selected = countries.find((country) => country.code === value) as any;
